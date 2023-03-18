@@ -13,7 +13,7 @@ void Thing()
 	if (!(*(bool*)_IsLostFocus))
 	{
 		// Ultimate Force Heat Level
-		if ((GetAsyncKeyState(hotkeyToggleForceHeat) & 1) && (GameState == 6)) //When pressed "Toggle Force Heat"
+		if ((GetAsyncKeyState(hotkeyToggleForceHeat) & 0x8000) && (GameState == 6)) //When pressed "Toggle Force Heat"
 		{
 			forceHeatLevel = !forceHeatLevel; // Toggle option
 			if (forceHeatLevel)
@@ -64,14 +64,14 @@ void Thing()
 			}
 		}
 
-		if ((GetAsyncKeyState(hotkeyForceHeatLevel) & 1) && forceHeatLevel && (GameState == 6)) //When pressed "Forced Heat Level"
+		if ((GetAsyncKeyState(hotkeyForceHeatLevel) & 0x8000) && forceHeatLevel && (GameState == 6)) //When pressed "Forced Heat Level"
 		{
 			heatLevel = (int)(floorf(heatLevel) - floorf(MinHeatLevel) + 1) % (int)(floorf(MaxHeatLevel) - floorf(MinHeatLevel) + 1) + MinHeatLevel;
 
 			Game_SetWorldHeat(heatLevel); // Use direct function call to set the heat level
 		}
 
-		if ((GetAsyncKeyState(hotkeyToggleCops) & 1) && forceHeatLevel && (GameState == 6)) // Toggle Cops
+		if ((GetAsyncKeyState(hotkeyToggleCops) & 0x8000) && forceHeatLevel && (GameState == 6)) // Toggle Cops
 		{
 			ToggleCops = !ToggleCops;
 			Game_SetCopsEnabled(ToggleCops);
@@ -93,7 +93,7 @@ void Thing()
 		}
 
 		// Cop Lights
-		if ((GetAsyncKeyState(hotkeyToggleCopLights) & 1) && (GameState == 6)) // When pressed "Toggle Police Lights" key
+		if ((GetAsyncKeyState(hotkeyToggleCopLights) & 0x8000) && (GameState == 6)) // When pressed "Toggle Police Lights" key
 		{
 			copLightsEnabled = !copLightsEnabled;
 
@@ -113,7 +113,7 @@ void Thing()
 		}
 
 		// Headlights
-		if ((GetAsyncKeyState(hotkeyToggleHeadlights) & 1) && (GameState == 6)) // When pressed "Toggle Head Lights" key
+		if ((GetAsyncKeyState(hotkeyToggleHeadlights) & 0x8000) && (GameState == 6)) // When pressed "Toggle Head Lights" key
 		{
 			headlightsMode = !headlightsMode;
 
@@ -143,7 +143,7 @@ void Thing()
 
 
 		// Car Hack
-		if ((GetAsyncKeyState(hotkeyCarHack) & 1)) // When pressed "Toggle Freeze Car" key
+		if ((GetAsyncKeyState(hotkeyCarHack) & 0x8000)) // When pressed "Toggle Freeze Car" key
 		{
 			carHackEnabled = !carHackEnabled;
 
@@ -215,7 +215,7 @@ void Thing()
 		}
 
 		// Drunk Driver
-		if ((GetAsyncKeyState(hotkeyAutoDrive) & 1) && (GameState == 6)) // When pressed "Drunk Driver" key
+		if ((GetAsyncKeyState(hotkeyAutoDrive) & 0x8000) && (GameState == 6)) // When pressed "Drunk Driver" key
 		{
 			AutoDrive = !AutoDrive;
 
@@ -230,13 +230,13 @@ void Thing()
 		}
 
 		// Freeze Camera
-		if ((GetAsyncKeyState(hotkeyFreezeCamera) & 1) && (GameState == 6))
+		if ((GetAsyncKeyState(hotkeyFreezeCamera) & 0x8000) && (GameState == 6))
 		{
 			*(bool*)_Camera_StopUpdating = !(*(bool*)_Camera_StopUpdating);
 		}
 
 		// Unlock All Things
-		if ((GetAsyncKeyState(hotkeyUnlockAllThings) & 1)) // When pressed "Unlock All Things" key
+		if ((GetAsyncKeyState(hotkeyUnlockAllThings) & 0x8000)) // When pressed "Unlock All Things" key
 		{
 			UnlockAllThings = !UnlockAllThings;
 			CIniReader iniReader("NFSMWExtraOptionsSettings.ini");
@@ -362,7 +362,7 @@ void Thing()
 		// Debug Camera
 		if (EnableDebugWorldCamera && (GameState == 6))
 		{
-			if ((GetAsyncKeyState(VK_BACK) & 1)) // Backspace : Toggle Debug World Camera
+			if ((GetAsyncKeyState(VK_BACK) & 0x8000)) // Backspace : Toggle Debug World Camera
 			{
 				DebugWorldCamera = !DebugWorldCamera;
 
@@ -377,7 +377,7 @@ void Thing()
 				}
 			}
 
-			if ((GetAsyncKeyState(VK_NEXT) & 1)) // Page Down : Toggle Debug Watch Car Camera
+			if ((GetAsyncKeyState(VK_NEXT) & 0x8000)) // Page Down : Toggle Debug Watch Car Camera
 			{
 				DebugWatchCarCamera = !DebugWatchCarCamera;
 				*(unsigned char*)_mToggleCar = 1;
@@ -395,12 +395,12 @@ void Thing()
 				}
 			}
 
-			if ((GetAsyncKeyState(VK_ADD) & 1) && DebugWatchCarCamera) // + : Next car
+			if ((GetAsyncKeyState(VK_ADD) & 0x8000) && DebugWatchCarCamera) // + : Next car
 			{
 				*(unsigned char*)_mToggleCar += 1;
 			}
 
-			if ((GetAsyncKeyState(VK_SUBTRACT) & 1) && DebugWatchCarCamera) // - : Previous car
+			if ((GetAsyncKeyState(VK_SUBTRACT) & 0x8000) && DebugWatchCarCamera) // - : Previous car
 			{
 				*(unsigned char*)_mToggleCar -= 1;
 			}
